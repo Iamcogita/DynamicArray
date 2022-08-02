@@ -14,13 +14,13 @@ public class MyArrays implements List {
         System.out.println(Arrays.toString(objArr));
     }
 
-    private Object[] doubleSpaces(Object[] tempArr) {
-        Object[] newArr = new Object[tempArr.length * 2];
-        for (int i = 0; i < tempArr.length; i++) {
-            newArr[i] = tempArr[i];
+    private Object[] doubleSpaces(Object[] arr) {
+        Object[] tempArr = new Object[arr.length * 2];
+        for (int i = 0; i < arr.length; i++) {
+            tempArr[i] = arr[i];
         }
-        tempArr = newArr;
-        return tempArr;
+        arr = tempArr;
+        return arr;
     }
 
     @Override
@@ -28,11 +28,11 @@ public class MyArrays implements List {
         Object[] tempArr = new Object[objArr.length];
         for (int i = 0; i < objArr.length; i++) {
             if (i == index) {
+                objCounter--;
                 continue;
             }
             tempArr[i] = objArr[i];
         }
-        objCounter--;
         objArr = tempArr;
         System.out.println(Arrays.toString(objArr));
         return objArr;
@@ -42,48 +42,40 @@ public class MyArrays implements List {
         Object[] tempArr = new Object[objArr.length];
         for (int i = 0; i < objArr.length; i++) {
             if (objArr[i] == obj) {
+                objCounter--;
                 continue;
             }
             tempArr[i] = objArr[i];
         }
-        objCounter--;
         objArr = tempArr;
         System.out.println(Arrays.toString(objArr));
         return objArr;
+    }
+
+    private void pushNullsToRight() {
+        Object[] temp = new Object[objArr.length];
+        int indexCounter = 0;
+        for (int i = 0; i < objArr.length; i++) {
+            if (objArr[i] != null) {
+                temp[indexCounter] = objArr[i];
+                indexCounter++;
+            }
+        }
+        objArr = temp;
     }
 
     public Object[] removeNulls() {
-        int numberOfNulls = 0;
-        for (Object o : objArr) {
-            if (o == null) {
-                numberOfNulls++;
-            }
-        }
-        pushNullsToEnd();
-        Object[] tempArr = new Object[objArr.length - numberOfNulls];
-        for (int i = 0; i < objArr.length; i++) {
+        pushNullsToRight();
+        Object[] tempArr = new Object[objCounter];
+        for (int i = 0; i < objCounter; i++) {
             if (objArr[i] == null) {
-                continue;
+                break;
             }
             tempArr[i] = objArr[i];
         }
         objArr = tempArr;
         System.out.println(Arrays.toString(objArr));
         return objArr;
-    }
-
-    private void pushNullsToEnd() {
-        for (int i = 0; i < objArr.length - 1; i++) {
-            if (objArr[i] == null) {
-                for (int j = i; j < objArr.length - 1; j++) {
-                    objArr[j] = objArr[j + 1];
-                }
-            }
-            if (objArr[i] == null && objArr[i + 1] != null) {
-                objArr[i] = objArr[i + 1];
-                objArr[i + 1] = null;
-            }
-        }
     }
 
     @Override
@@ -94,17 +86,16 @@ public class MyArrays implements List {
                 return true;
             }
         }
-        System.out.println("\"" + obj.toString() + "\"" + " Doesn't exist in you Array.");
+        System.out.println("\"" + obj.toString() + "\"" + " Doesn't exist in your Array.");
         return false;
     }
 
     @Override
     public Object set(int index, Object element) {
-        for (int i = 0; i < objArr.length; i++) {
-            if (i == index) {
-                objArr[i] = element;
-            }
+        if (objArr[index] == null) {
+            objCounter++;
         }
+        objArr[index] = element;
         System.out.println(Arrays.toString(objArr));
         return objArr;
     }
@@ -113,8 +104,10 @@ public class MyArrays implements List {
         for (int i = objArr.length - 1; i > index; i--) {
             objArr[i] = objArr[i - 1];
         }
+        if (objArr[index] == null) {
+            objCounter++;
+        }
         objArr[index] = obj;
-        objCounter++;
         System.out.println(Arrays.toString(objArr));
     }
 

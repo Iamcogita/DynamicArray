@@ -13,22 +13,12 @@ public class Main {
         newArr.addArr("Tiago");
         newArr.addArr("&");
         newArr.addArr("David");
-        newArr.contains("David");
+        newArr.addArr("!");
         newArr.remove(0);
-        newArr.contains("Hello");
-        newArr.removeByObject("&");
-        newArr.set(0, "Hey");
+        newArr.removeByObject("World");
+        newArr.insertObjectByIndex(14, "test1");
+        newArr.set(12, "test2");
         newArr.removeNulls();
-        newArr.addArr("!");
-        newArr.insertObjectByIndex(5, "&");
-        newArr.insertObjectByIndex(7, "&");
-        newArr.removeNulls();
-        newArr.addArr("!");
-        newArr.addArr("!");
-        newArr.set(1, null);
-        newArr.removeNulls();
-        newArr.get(0);
-
 
     }
 }
